@@ -17,7 +17,6 @@ ActiveAdmin.register_page "Dashboard" do
     end
     link_to fa_icon 'camera-retro'
     div id: 'react_app' do
-      stylesheet_pack_tag 'app'
       javascript_pack_tag 'app'
     end
   end
