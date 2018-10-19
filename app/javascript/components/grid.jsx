@@ -4,6 +4,8 @@ import styles from 'react-table/react-table.css'
 
 export default class Grid extends React.Component {
   render() {
-    return <ReactTable data={this.props.data} columns={this.props.columns} />
+    return <div>
+      <ReactTable data={this.props.data} columns={this.props.columns} />
+    </div>
   }
 }

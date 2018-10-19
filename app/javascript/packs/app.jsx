@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
-import Grid from './grid';
+import Grid from 'components/grid';
+import Form from 'components/form';
 
 library.add(faThumbsUp)
 library.add(faThumbsDown)
@@ -24,25 +25,15 @@ function getData(item) {
 class App extends React.Component {
   render() {
     const columns = [
-      {
-        Header: 'Name',
-        accessor: 'name' // String-based value accessors!
-      },
-      {
-        Header: 'Surname',
-        accessor: 'surname',
-      }
+      { Header: 'Title', accessor: 'title' },
+      { Header: 'Comment', accessor: 'comment' },
+      { Header: 'Due at', accessor: 'due_at'},
     ]
 
-    const data = [
-      { name: 'Bob', surname: 'Dylan'}
-    ]
     return <div style = { { width: '1200px'} }>
-      <h1>Users</h1>
-      {/*<div style = { {display: 'flex'} }>
-        { this.props.users.map( (user) => <Container name = { user.name } /> ) }
-      </div>*/}
-      <Grid columns={columns} data={data} />
+      <h2>Users</h2>
+      <Form />
+      <Grid columns={columns} data={this.props.data.data} />
     </div>
 
   }
@@ -70,7 +61,7 @@ class Like extends React.Component {
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <App name="React" users = { getData('users') } />,
+    <App name="React" data = { getData('tasks') } />,
     document.getElementById('react_app'),
   )  
 })
