@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
+import Grid from './grid';
 
 library.add(faThumbsUp)
 library.add(faThumbsDown)
@@ -22,11 +23,26 @@ function getData(item) {
 
 class App extends React.Component {
   render() {
+    const columns = [
+      {
+        Header: 'Name',
+        accessor: 'name' // String-based value accessors!
+      },
+      {
+        Header: 'Surname',
+        accessor: 'surname',
+      }
+    ]
+
+    const data = [
+      { name: 'Bob', surname: 'Dylan'}
+    ]
     return <div style = { { width: '1200px'} }>
       <h1>Users</h1>
-      <div style = { {display: 'flex'} }>
+      {/*<div style = { {display: 'flex'} }>
         { this.props.users.map( (user) => <Container name = { user.name } /> ) }
-      </div>
+      </div>*/}
+      <Grid columns={columns} data={data} />
     </div>
 
   }
