@@ -22,20 +22,32 @@ function getData(item) {
   return window.data[item];
 }
 
+function getTasks(params) {
+  console.log(`received: ${params}`)
+  return $.ajax({
+    url: 'tasks',
+    data: params,
+    type: 'GET',
+    dataType: 'json'
+  });
+}
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   state = {
     tasks: []
   }
 
   componentWillMount() {
-    $.ajax({
-      url: 'tasks',
-      type: 'GET',
-      dataType: 'json',
-      success: function(tasks) { 
-        this.setState({tasks});
-      }.bind(this)
-    });
+    getTasks().then( tasks => this.setState({tasks}) )
+  }
+
+  handleSubmit(query) {
+    getTasks(query).then( tasks => this.setState({tasks}) )
   }
 
   render() {
@@ -47,10 +59,9 @@ class App extends React.Component {
 
     return <div style = { { width: '1200px'} }>
       <h2>Users</h2>
-      <TasksForm enums={this.props.data.enums} />
-      <Grid columns={columns} data={this.state.tasks} />
+      <TasksForm enums={this.props.data.enums} submitForm={this.handleSubmit}/>
+      <Grid columns={columns} data={this.state.tasks}/>
     </div>
-
   }
 }
 

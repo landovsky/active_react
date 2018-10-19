@@ -5,12 +5,28 @@ import Select from 'components/select'
 import Options from 'components/options'
 
 export default class TasksForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { title: ''};
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+
+  handleOnChange(event) {
+    console.log('onChange')
+    this.setState({title: event.target.value});
+  }
+
   render() {
-    return <form className="formtastic">
+    const onSubmitHandler = event => {
+      this.props.submitForm(`q[title_contains]=${this.state.title}`)
+      event.preventDefault();
+    }
+
+    return <form onSubmit={ onSubmitHandler }>
         <fieldset className="inputs">
           <ol>
-            <InputWrapper name="Name">
-              <Input name="Upload"/>
+            <InputWrapper name="Title">
+              <input type="text" name="title" value={this.state.title} onChange={this.handleOnChange} />
             </InputWrapper>
 
             <InputWrapper name="Role">
@@ -19,12 +35,9 @@ export default class TasksForm extends React.Component {
               </Select>
             </InputWrapper>
           </ol>
-        </fieldset>
-
-        <fieldset className="actions">
           <ol>
             <InputWrapper>
-              <Input type="submit" name="Search"/>
+              <input type="submit" name="Search"/>
             </InputWrapper>
           </ol>
         </fieldset>

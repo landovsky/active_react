@@ -10,7 +10,7 @@ ActiveAdmin.register Task do
       @tasks  = @search.result(distinct: true).page(params[:page]).per(PAGE_PER)
 
       respond_to do |format|
-        # format.html { render :tasks }
+        format.html { render :index }
         format.json do
           render layout: false, json: @tasks.to_json
         end
