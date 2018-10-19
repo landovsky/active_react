@@ -1,8 +1,10 @@
 import React from 'react';
 import Input from 'components/input'
 import InputWrapper from 'components/inputWrapper'
+import Select from 'components/select'
+import Options from 'components/options'
 
-export default class Form extends React.Component {
+export default class TasksForm extends React.Component {
   render() {
     return <form className="formtastic">
         <fieldset className="inputs">
@@ -12,12 +14,9 @@ export default class Form extends React.Component {
             </InputWrapper>
 
             <InputWrapper name="Role">
-              <select name="role_id">
-                <option value=""></option>
-                <option value="1">User</option>
-                <option value="2">Admin</option>
-                <option value="3">Super Admin</option>
-              </select>
+              <Select name="role_id">
+                <Options enums={this.props.enums.task_type}></Options>
+              </Select>
             </InputWrapper>
           </ol>
         </fieldset>

@@ -9,7 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import Grid from 'components/grid';
-import Form from 'components/form';
+import TasksForm from 'components/tasksForm';
 
 library.add(faThumbsUp)
 library.add(faThumbsDown)
@@ -23,6 +23,21 @@ function getData(item) {
 }
 
 class App extends React.Component {
+  state = {
+    tasks: []
+  }
+
+  componentWillMount() {
+    $.ajax({
+      url: 'tasks',
+      type: 'GET',
+      dataType: 'json',
+      success: function(tasks) { 
+        this.setState({tasks});
+      }.bind(this)
+    });
+  }
+
   render() {
     const columns = [
       { Header: 'Title', accessor: 'title' },
@@ -32,8 +47,8 @@ class App extends React.Component {
 
     return <div style = { { width: '1200px'} }>
       <h2>Users</h2>
-      <Form />
-      <Grid columns={columns} data={this.props.data.data} />
+      <TasksForm enums={this.props.data.enums} />
+      <Grid columns={columns} data={this.state.tasks} />
     </div>
 
   }
